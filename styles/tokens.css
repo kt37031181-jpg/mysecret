@@ -1,0 +1,71 @@
+/* ── MY SECRET · Design Tokens ─────────────────────────────
+   Direction: Dark Luxury Editorial — 먹빛 배경 + 샴페인 골드 + 명조 디스플레이
+   ──────────────────────────────────────────────────────── */
+
+:root {
+  /* Surface */
+  --ink-900: #0B0A09;
+  --ink-800: #121010;
+  --ink-700: #1A1715;
+  --ink-600: #241F1B;
+  --ink-500: #332B25;
+  --line: rgba(201, 169, 106, 0.22);
+  --line-soft: rgba(245, 240, 232, 0.09);
+
+  /* Ink on dark */
+  --cream: #F5F0E8;
+  --cream-dim: rgba(245, 240, 232, 0.66);
+  --cream-faint: rgba(245, 240, 232, 0.4);
+
+  /* Accent */
+  --gold: #C9A96A;
+  --gold-lt: #E4CE9B;
+  --gold-deep: #8C6E38;
+  /* brighter than --gold-lt so checklists read as yellow, not beige */
+  --yellow: #F5D77A;
+  --wine: #7A2338;
+  --wine-lt: #B8455F;
+
+  /* Gradients */
+  --grad-gold: linear-gradient(135deg, #8C6E38 0%, #E4CE9B 42%, #C9A96A 68%, #7A5A2C 100%);
+  --grad-event: linear-gradient(112deg, #5C1728 0%, #7A2338 55%, #A03350 100%);
+  --grad-veil: linear-gradient(180deg, rgba(11, 10, 9, 0) 0%, rgba(11, 10, 9, 0.92) 78%, #0B0A09 100%);
+
+  /* Type */
+  --font-display: 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;
+  --font-body: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+
+  --text-eyebrow: clamp(0.68rem, 0.64rem + 0.16vw, 0.78rem);
+  --text-sm: clamp(0.8rem, 0.76rem + 0.2vw, 0.9rem);
+  --text-base: clamp(0.94rem, 0.9rem + 0.24vw, 1.05rem);
+  --text-lead: clamp(1.05rem, 0.96rem + 0.42vw, 1.28rem);
+  --text-h3: clamp(1.25rem, 1.06rem + 0.86vw, 1.75rem);
+  --text-h2: clamp(1.7rem, 1.24rem + 2.1vw, 3.1rem);
+  --text-hero: clamp(2.6rem, 1.1rem + 6.4vw, 6.4rem);
+  --text-numeral: clamp(2rem, 1.2rem + 3.6vw, 3.6rem);
+
+  /* Space */
+  --space-section: clamp(4.5rem, 3rem + 6vw, 9.5rem);
+  --space-gutter: clamp(1.15rem, 0.6rem + 2.4vw, 3rem);
+  --measure: 1240px;
+  --measure-narrow: 860px;
+
+  /* Motion */
+  --duration-fast: 160ms;
+  --duration-normal: 320ms;
+  --duration-slow: 720ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Elevation */
+  --shadow-card: 0 1px 0 rgba(245, 240, 232, 0.05) inset, 0 24px 60px -30px rgba(0, 0, 0, 0.9);
+  --shadow-lift: 0 1px 0 rgba(245, 240, 232, 0.09) inset, 0 40px 80px -32px rgba(0, 0, 0, 0.95);
+  --shadow-gold: 0 18px 44px -22px rgba(201, 169, 106, 0.55);
+
+  --radius-sm: 3px;
+  --radius: 6px;
+  --radius-lg: 14px;
+
+  --bar-h: 66px;
+}
