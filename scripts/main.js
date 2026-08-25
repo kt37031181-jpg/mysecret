@@ -102,6 +102,48 @@ function initTabs() {
   document.querySelectorAll('[data-tabs]').forEach(initTabGroup);
 }
 
+/* Phones open on a single category instead of all eight service cards —
+   showing everything at once made the menu 13 screens tall. */
+const PHONE = window.matchMedia('(max-width: 759px)');
+
+function initMobileDefaults() {
+  if (!PHONE.matches) return;
+  document.querySelector('[data-tabs="menu"] [data-tab="lash"]')?.click();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+/* Gallery starts trimmed on phones; the button reveals the rest. */
+const GALLERY_PREVIEW = 8;
+
+function initShowMore() {
+  const btn = document.querySelector('[data-more="gallery"]');
+  const panel = document.querySelector('[data-tabpanel="gallery"]');
+  if (!btn || !panel || !PHONE.matches) return;
+
+  const trim = () => {
+    // clear first — otherwise trims from a previous tab stick around and the
+    // next category shows fewer than GALLERY_PREVIEW
+    panel.querySelectorAll('.is-trimmed').forEach((el) => el.classList.remove('is-trimmed'));
+
+    const visible = [...panel.querySelectorAll('[data-cat]')].filter((el) => !el.hidden);
+    const excess = visible.slice(GALLERY_PREVIEW);
+    excess.forEach((el) => el.classList.add('is-trimmed'));
+    btn.hidden = excess.length === 0;
+    btn.textContent = `사진 ${excess.length}장 더 보기`;
+  };
+
+  btn.addEventListener('click', () => {
+    panel.querySelectorAll('.is-trimmed').forEach((el) => el.classList.remove('is-trimmed'));
+    btn.hidden = true;
+  });
+
+  document.querySelectorAll('[data-tabs="gallery"] [data-tab]').forEach((tab) =>
+    tab.addEventListener('click', () => window.requestAnimationFrame(trim))
+  );
+
+  trim();
+}
+
 /* Count-up numerals ----------------------------------------------------- */
 function countUp(el) {
   const target = Number(el.dataset.count);
@@ -188,3 +230,5 @@ initCounters();
 initMarquee();
 initStrip();
 initTickers();
+initMobileDefaults();
+initShowMore();

@@ -994,8 +994,22 @@
 
 /* `[hidden]` must win over the layout display value the tab filter toggles */
 .shot[hidden],
-.svc[hidden] {
+.svc[hidden],
+.shot.is-trimmed {
   display: none;
+}
+
+.gallery__more {
+  display: none;
+  width: 100%;
+  min-height: 52px;
+  margin-top: 1.1rem;
+}
+
+@media (max-width: 759px) {
+  .gallery__more:not([hidden]) {
+    display: inline-flex;
+  }
 }
 
 .shot {
