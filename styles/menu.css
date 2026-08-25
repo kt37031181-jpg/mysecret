@@ -1535,9 +1535,11 @@
   display: flex;
   gap: 0.6rem;
   padding: 0.7rem var(--space-gutter) calc(0.7rem + env(safe-area-inset-bottom));
-  background: rgba(11, 10, 9, 0.9);
-  backdrop-filter: blur(16px);
+  /* Opaque on purpose: a translucent bar with backdrop-filter smeared the red
+     CTA band upward as it scrolled underneath. */
+  background: var(--ink-900);
   border-top: 1px solid var(--line-soft);
+  box-shadow: 0 -16px 28px -14px rgba(0, 0, 0, 0.95);
   transform: translateY(110%);
   transition: transform var(--duration-normal) var(--ease-out-expo);
 }
