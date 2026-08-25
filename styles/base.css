@@ -152,7 +152,17 @@ section {
   line-height: 1.85;
 }
 
+/* When a gradient-clipped run wraps, each line fragment gets its own box.
+   Without `clone` + padding the second fragment (e.g. a lone 샵) is painted
+   in a box shorter than the glyph and reads as cut off. */
 .gold-text {
+  /* keep the run on one line — a lone trailing glyph (e.g. 샵) ends up in a
+     line box too tight for the gradient and reads as a different letter */
+  white-space: nowrap;
+  padding: 0.14em 0.16em;
+  margin: -0.14em -0.12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   background: var(--grad-gold);
   -webkit-background-clip: text;
   background-clip: text;
