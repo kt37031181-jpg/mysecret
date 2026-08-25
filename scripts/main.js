@@ -157,6 +157,18 @@ function initMarquee() {
    own width so long and short tickers drift at the same speed.            */
 const TICKER_PX_PER_SEC = 34;
 
+/* Photo strip under the word marquee — same seamless-clone trick, paced by
+   width so it drifts at a readable speed regardless of how many photos. */
+const STRIP_PX_PER_SEC = 26;
+
+function initStrip() {
+  const track = document.querySelector('[data-strip]');
+  if (!track) return;
+  track.append(...[...track.children].map((node) => node.cloneNode(true)));
+  const halfWidth = track.scrollWidth / 2;
+  track.style.setProperty('--strip-duration', `${Math.round(halfWidth / STRIP_PX_PER_SEC)}s`);
+}
+
 function initTickers() {
   document.querySelectorAll('[data-ticker]').forEach((track) => {
     const cards = [...track.children];
@@ -172,4 +184,5 @@ initReveal();
 initTabs();
 initCounters();
 initMarquee();
+initStrip();
 initTickers();
