@@ -155,13 +155,13 @@ function initMarquee() {
 
 /* Review tickers — clone once for a seamless loop, and pace each one by its
    own width so long and short tickers drift at the same speed.            */
-const TICKER_PX_PER_SEC = 34;
+const TICKER_PX_PER_SEC = 18;
 
 /* Photo strip under the word marquee — same seamless-clone trick, paced by
    width so it drifts at a readable speed regardless of how many photos. */
-/* Cards are wide, so the strip needs more speed than the photo band did —
-   fast enough to feel alive, slow enough to read a line while it passes. */
-const STRIP_PX_PER_SEC = 46;
+/* Slow drift: the point is that a passer-by can actually finish reading a
+   card, not that the band looks busy. */
+const STRIP_PX_PER_SEC = 15;
 
 function initStrip() {
   const track = document.querySelector('[data-strip]');

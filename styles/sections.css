@@ -35,6 +35,7 @@
   display: flex;
   align-items: center;
   gap: clamp(0.5rem, 1.4vw, 0.85rem);
+  min-height: 46px;
   line-height: 1;
 }
 
@@ -73,9 +74,9 @@
 
 .wordmark__sub {
   margin-top: 5px;
-  font-size: 0.66rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   color: var(--gold);
 }
 
@@ -416,9 +417,9 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   background: rgba(201, 169, 106, 0.07);
-  font-size: var(--text-eyebrow);
+  font-size: clamp(0.72rem, 0.68rem + 0.2vw, 0.8rem);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   color: var(--gold-lt);
 }
 

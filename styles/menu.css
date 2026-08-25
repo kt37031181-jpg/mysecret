@@ -1624,6 +1624,36 @@
    ──────────────────────────────────────────────────────── */
 
 @media (max-width: 759px) {
+  /* 10px 뱃지는 폰에서 읽히지 않는다 */
+  .scard__tags span,
+  .rcard__tags span {
+    font-size: 0.72rem;
+    padding: 0.3em 0.66em;
+  }
+
+  /* 지점 표시는 장식이 아니라 정보라 최소 11px 확보 */
+  .svc__pin {
+    font-size: 0.72rem;
+    padding: 0.36em 0.85em;
+  }
+
+  .eyebrow,
+  .ticker__label,
+  .live {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+  }
+
+  .scard__text {
+    font-size: 0.86rem;
+  }
+
+  /* 후기 섹션이 11화면을 먹는다. 폰에서는 그룹당 3건만 두고
+     나머지는 위쪽 티커·카드띠가 이미 계속 흘려보내고 있다. */
+  .rgroup .review:nth-child(n + 4) {
+    display: none;
+  }
+
   .svc__foot {
     flex-direction: column;
     align-items: stretch;
