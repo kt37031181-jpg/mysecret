@@ -1249,7 +1249,8 @@
 
 .master__plate {
   margin: 0;
-  padding: 18px;
+  padding: 0;
+  overflow: hidden;
 }
 
 .master__plate img {
@@ -1257,6 +1258,43 @@
   height: 100%;
   object-fit: contain;
   border-radius: calc(var(--radius-lg) - 8px);
+}
+
+/* Shop photo variant — real interior with the crest laid over it */
+.master__plate--shop {
+  position: relative;
+}
+
+.master__plate--shop > img {
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.master__plate--shop figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 3.2rem 1rem 1.4rem;
+  background: linear-gradient(180deg, transparent, rgba(11, 10, 9, 0.9));
+}
+
+.master__plate--shop figcaption img {
+  width: clamp(66px, 18%, 92px);
+  height: auto;
+  aspect-ratio: 460 / 420;
+  object-fit: cover;
+  border-radius: 7px;
+  border: 1px solid rgba(201, 169, 106, 0.4);
+}
+
+.master__plate--shop figcaption span {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--gold-lt);
 }
 
 .master__initials {
