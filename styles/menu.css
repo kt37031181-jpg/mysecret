@@ -936,6 +936,34 @@
   color: var(--cream);
 }
 
+/* Brand stamp burned onto every photo so MY SECRET always outranks the
+   photographers' own watermarks that sit inside some of the source images. */
+.shot::before,
+.svc__shot::before {
+  content: 'MY SECRET';
+  position: absolute;
+  z-index: 2;
+  inset-block-start: 9px;
+  inset-inline-start: 9px;
+  padding: 0.34em 0.7em;
+  border-radius: 4px;
+  background: rgba(11, 10, 9, 0.62);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(232, 213, 168, 0.45);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--gold-lt);
+  pointer-events: none;
+}
+
+.svc__shot::before {
+  inset-block-start: 12px;
+  inset-inline-start: 12px;
+  font-size: 0.68rem;
+}
+
 /* Always-on tap affordance — hover states are invisible on a phone */
 .shot__go {
   position: absolute;

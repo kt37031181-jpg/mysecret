@@ -5,7 +5,8 @@
   inset-block-start: 0;
   inset-inline: 0;
   z-index: 900;
-  height: var(--bar-h);
+  min-height: var(--bar-h);
+  padding-block: 0.5rem;
   display: flex;
   align-items: center;
   background: rgba(11, 10, 9, 0.72);
@@ -36,9 +37,13 @@
 
 .wordmark__main {
   font-family: var(--font-display);
-  font-size: 1.12rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .wordmark__sub {
@@ -428,10 +433,12 @@
 
 /* background-clip:text paints only inside the inline box, so pad it out
    (and cancel the pad with margin) or the tops of 인/생 lose their fill. */
+/* Italic glyphs lean past their inline box; without this padding the right
+   edge of 생 falls outside the gradient and reads as cut off. */
 .hero__title em {
   display: inline-block;
-  padding: 0.14em 0.06em;
-  margin: -0.14em -0.06em;
+  padding: 0.16em 0.2em;
+  margin: -0.16em -0.16em;
   font-style: italic;
   background: var(--grad-gold);
   -webkit-background-clip: text;
