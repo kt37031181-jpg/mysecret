@@ -526,10 +526,12 @@
   overflow: hidden;
 }
 
+/* The word band runs the other way instead — single words need no reading
+   flow, so it can carry the counter-motion the two bands are paired for. */
 .marquee__track {
   display: flex;
   width: max-content;
-  animation: slide 34s linear infinite;
+  animation: slide 34s linear infinite reverse;
 }
 
 .marquee:hover .marquee__track {
@@ -575,13 +577,16 @@
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
+/* Right-to-left, same as reading order: a card enters from the right and the
+   eye follows it leftward while reading. Reversed, the text slid against the
+   reading direction and each line had to be re-found. */
 .strip__track {
   display: flex;
   align-items: stretch;
   gap: 0.7rem;
   width: max-content;
   padding-block: 14px;
-  animation: strip-drift var(--strip-duration, 70s) linear infinite reverse;
+  animation: strip-drift var(--strip-duration, 70s) linear infinite;
 }
 
 .strip:hover .strip__track {
