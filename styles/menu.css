@@ -140,11 +140,74 @@
   transform: scale(1.07);
 }
 
+/* Lighter veil — the old one crushed the photo and made the stamp shout */
 .svc__shot::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(11, 10, 9, 0.1) 0%, rgba(11, 10, 9, 0.55) 72%, var(--ink-700) 100%);
+  background: linear-gradient(180deg, rgba(11, 10, 9, 0) 0%, rgba(11, 10, 9, 0.18) 62%, rgba(26, 23, 21, 0.82) 100%);
+}
+
+/* ── Academy card visual ────────────────────────────────────
+   The source flyer gives half its space to the SKIN'S waxing
+   brand. Rather than crop awkwardly, the card is rebuilt around
+   the MY SECRET lockup so only our brand shows.
+   ──────────────────────────────────────────────────────── */
+
+.svc__shot--brand {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 11;
+  background:
+    radial-gradient(120% 90% at 50% 12%, rgba(201, 169, 106, 0.16) 0%, transparent 62%),
+    linear-gradient(168deg, #2A2320 0%, #17130F 100%);
+}
+
+.svc__shot--brand::after {
+  background: none;
+}
+
+/* The lockup already carries the brand, so drop the corner stamp. Doubled
+   class keeps this above the generic `.svc__shot::before` rule further down. */
+.svc__shot.svc__shot--brand::before {
+  content: none;
+}
+
+.svc__brand {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  padding: 1.4rem 1rem;
+  text-align: center;
+}
+
+.svc__brand img {
+  width: clamp(104px, 26%, 150px);
+  height: auto;
+  aspect-ratio: 460 / 420;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 169, 106, 0.34);
+  filter: brightness(1.06);
+}
+
+.svc__brand b {
+  display: inline-block;
+  padding: 0.5em 1.3em;
+  border: 1px solid rgba(232, 213, 168, 0.55);
+  border-radius: 999px;
+  background: rgba(201, 169, 106, 0.12);
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 0.84rem + 0.3vw, 1.06rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--gold-lt);
+}
+
+.svc__brand small {
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  color: var(--cream-faint);
 }
 
 .svc__stamp {
@@ -742,6 +805,56 @@
   flex-wrap: wrap;
   gap: 0.3rem;
   margin-top: 0.85rem;
+}
+
+/* Director-skill ticker — quieter and more editorial than the service ones,
+   so the two review bands either side of it don't feel like a repeat. */
+.ticker--master {
+  background: linear-gradient(180deg, var(--ink-900), var(--ink-800));
+  border-block-color: var(--line);
+}
+
+.ticker--master .ticker__label {
+  color: var(--gold-lt);
+}
+
+.ticker--master .ticker__label::before {
+  background: var(--gold);
+  animation: none;
+  box-shadow: none;
+}
+
+.mcard {
+  flex: 0 0 auto;
+  width: min(86vw, 420px);
+  margin: 0;
+  padding: 1.3rem 1.5rem;
+  border-inline-start: 2px solid var(--gold);
+  background: linear-gradient(100deg, rgba(201, 169, 106, 0.07), transparent 70%);
+}
+
+.mcard p {
+  font-family: var(--font-display);
+  font-size: clamp(0.94rem, 0.88rem + 0.3vw, 1.1rem);
+  line-height: 1.72;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+}
+
+.mcard p::before {
+  content: '“';
+  color: var(--gold);
+}
+
+.mcard p::after {
+  content: '”';
+  color: var(--gold);
+}
+
+.mcard footer {
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  color: var(--cream-faint);
 }
 
 .rcard__tags span {
