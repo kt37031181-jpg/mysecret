@@ -159,7 +159,9 @@ const TICKER_PX_PER_SEC = 34;
 
 /* Photo strip under the word marquee — same seamless-clone trick, paced by
    width so it drifts at a readable speed regardless of how many photos. */
-const STRIP_PX_PER_SEC = 26;
+/* Cards are wide, so the strip needs more speed than the photo band did —
+   fast enough to feel alive, slow enough to read a line while it passes. */
+const STRIP_PX_PER_SEC = 46;
 
 function initStrip() {
   const track = document.querySelector('[data-strip]');

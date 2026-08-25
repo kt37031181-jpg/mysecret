@@ -576,9 +576,10 @@
 
 .strip__track {
   display: flex;
-  gap: 8px;
+  align-items: stretch;
+  gap: 0.7rem;
   width: max-content;
-  padding-block: 10px;
+  padding-block: 14px;
   animation: strip-drift var(--strip-duration, 70s) linear infinite reverse;
 }
 
@@ -602,42 +603,82 @@
   }
 }
 
-.strip__item {
+/* Review card: photo + the customer's own words + Naver keyword badges.
+   A face alone proves nothing, so the text travels with the picture. */
+.scard {
   position: relative;
   flex: 0 0 auto;
-  width: clamp(132px, 20vw, 188px);
-  aspect-ratio: 16 / 10;
-  border-radius: var(--radius);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: clamp(252px, 30vw, 310px);
   border: 1px solid var(--line-soft);
-  background: var(--ink-700);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(158deg, var(--ink-700), var(--ink-900));
+  overflow: hidden;
+  transition: border-color var(--duration-normal) var(--ease-out-expo);
 }
 
-.strip__item img {
+.scard:hover {
+  border-color: var(--line);
+}
+
+.scard__img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 7;
   object-fit: cover;
-  filter: saturate(0.95) brightness(0.92);
-  transition: filter var(--duration-normal) var(--ease-out-expo);
+  filter: saturate(0.97);
 }
 
-.strip__item:hover img {
-  filter: saturate(1.05) brightness(1);
-}
-
-/* brand stamp, smaller than the gallery one */
-.strip__item::after {
+.scard::after {
   content: 'MY SECRET';
   position: absolute;
-  inset-block-end: 5px;
-  inset-inline-start: 6px;
+  inset-block-start: 7px;
+  inset-inline-start: 8px;
   padding: 0.22em 0.5em;
   border-radius: 3px;
-  background: rgba(11, 10, 9, 0.6);
+  background: rgba(11, 10, 9, 0.62);
+  border: 1px solid rgba(232, 213, 168, 0.35);
   font-family: var(--font-display);
   font-size: 0.5rem;
   letter-spacing: 0.12em;
   color: var(--gold-lt);
+}
+
+.scard__body {
+  padding: 0.85rem 1rem 1rem;
+}
+
+.scard__stars {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+.scard__text {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--cream);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.scard__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin-top: 0.7rem;
+}
+
+.scard__tags span {
+  padding: 0.26em 0.6em;
+  border-radius: 5px;
+  background: rgba(245, 240, 232, 0.06);
+  font-size: 0.63rem;
+  color: var(--cream-dim);
+  white-space: nowrap;
 }
 
 /* ── Event section ──────────────────────────────────────── */
