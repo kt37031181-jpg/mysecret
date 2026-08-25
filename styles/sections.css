@@ -568,45 +568,37 @@
    repeat. Real review photos, no captions — pure texture.
    ──────────────────────────────────────────────────────── */
 
+/* 손으로 밀 수 있어야 하므로 실제 스크롤 컨테이너로 둔다.
+   자동 흐름은 JS가 scrollLeft 로 굴리고, 만지면 멈춘다. */
 .strip {
   padding-block: 0;
   border-bottom: 1px solid var(--line-soft);
   background: var(--ink-900);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
-/* Right-to-left, same as reading order: a card enters from the right and the
-   eye follows it leftward while reading. Reversed, the text slid against the
-   reading direction and each line had to be re-found. */
+.strip::-webkit-scrollbar {
+  display: none;
+}
+
+.strip.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
 .strip__track {
   display: flex;
   align-items: stretch;
   gap: 0.7rem;
   width: max-content;
   padding-block: 14px;
-  animation: strip-drift var(--strip-duration, 70s) linear infinite;
-}
-
-.strip:hover .strip__track {
-  animation-play-state: paused;
-}
-
-@keyframes strip-drift {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .strip__track {
-    animation: none;
-  }
-
-  .strip {
-    overflow-x: auto;
-  }
 }
 
 /* Review card: photo + the customer's own words + Naver keyword badges.

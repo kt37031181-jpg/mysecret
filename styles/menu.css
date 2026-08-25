@@ -714,39 +714,32 @@
   background: linear-gradient(90deg, var(--line), transparent);
 }
 
+/* 카드띠와 같은 방식: 실제 스크롤 컨테이너 + JS 자동 흐름 */
 .ticker__viewport {
   position: relative;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.ticker__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.ticker__viewport.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .ticker__track {
   display: flex;
   gap: 0.9rem;
   width: max-content;
-  animation: ticker-drift var(--ticker-duration, 64s) linear infinite;
-}
-
-.ticker__viewport:hover .ticker__track,
-.ticker__viewport:focus-within .ticker__track {
-  animation-play-state: paused;
-}
-
-@keyframes ticker-drift {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ticker__track {
-    animation: none;
-  }
-
-  .ticker__viewport {
-    overflow-x: auto;
-  }
 }
 
 .rcard {

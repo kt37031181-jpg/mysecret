@@ -195,32 +195,113 @@ function initMarquee() {
   track.append(...[...track.children].map((node) => node.cloneNode(true)));
 }
 
-/* Review tickers — clone once for a seamless loop, and pace each one by its
-   own width so long and short tickers drift at the same speed.            */
+/* Review bands ----------------------------------------------------------
+   Driven by scrollLeft rather than a CSS transform, so a visitor can swipe
+   or drag a card into view instead of waiting for it to come around.
+   The track is cloned once and the offset wraps at the halfway point, which
+   keeps the loop seamless in both directions.
+   ---------------------------------------------------------------------- */
 const TICKER_PX_PER_SEC = 18;
-
-/* Photo strip under the word marquee — same seamless-clone trick, paced by
-   width so it drifts at a readable speed regardless of how many photos. */
-/* Slow drift: the point is that a passer-by can actually finish reading a
-   card, not that the band looks busy. */
 const STRIP_PX_PER_SEC = 15;
+const RESUME_DELAY_MS = 2500;
+
+function initAutoScroll(viewport, track, pxPerSec) {
+  if (!viewport || !track || !track.children.length) return;
+
+  track.append(...[...track.children].map((node) => node.cloneNode(true)));
+  const half = () => track.scrollWidth / 2;
+
+  let paused = false;
+  let resumeTimer = 0;
+  let last = performance.now();
+
+  const wrap = () => {
+    const h = half();
+    if (h <= 0) return;
+    if (viewport.scrollLeft >= h) viewport.scrollLeft -= h;
+    else if (viewport.scrollLeft <= 0) viewport.scrollLeft += h;
+  };
+
+  const pause = () => {
+    paused = true;
+    window.clearTimeout(resumeTimer);
+  };
+
+  const resumeSoon = () => {
+    window.clearTimeout(resumeTimer);
+    resumeTimer = window.setTimeout(() => {
+      paused = false;
+      last = performance.now();
+    }, RESUME_DELAY_MS);
+  };
+
+  if (!REDUCED_MOTION) {
+    const step = (now) => {
+      const dt = Math.min(now - last, 100);
+      last = now;
+      if (!paused) {
+        viewport.scrollLeft += (pxPerSec * dt) / 1000;
+        wrap();
+      }
+      window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  /* touch + trackpad: let the browser scroll, we only pause the drift */
+  ['pointerdown', 'touchstart', 'wheel'].forEach((type) =>
+    viewport.addEventListener(type, pause, { passive: true })
+  );
+  ['pointerup', 'pointercancel', 'touchend', 'touchcancel', 'mouseleave'].forEach((type) =>
+    viewport.addEventListener(type, resumeSoon, { passive: true })
+  );
+  viewport.addEventListener('scroll', wrap, { passive: true });
+
+  /* mouse drag — desktop has no swipe, so grab-and-pull the band */
+  let dragging = false;
+  let startX = 0;
+  let startScroll = 0;
+
+  viewport.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') return;
+    dragging = true;
+    startX = e.clientX;
+    startScroll = viewport.scrollLeft;
+    viewport.classList.add('is-dragging');
+  });
+
+  viewport.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    e.preventDefault();
+    viewport.scrollLeft = startScroll - (e.clientX - startX);
+    wrap();
+  });
+
+  const endDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    viewport.classList.remove('is-dragging');
+    resumeSoon();
+  };
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach((t) =>
+    viewport.addEventListener(t, endDrag)
+  );
+
+  /* a drag shouldn't fire the link underneath */
+  viewport.addEventListener('click', (e) => {
+    if (Math.abs(viewport.scrollLeft - startScroll) > 6) e.preventDefault();
+  });
+}
 
 function initStrip() {
   const track = document.querySelector('[data-strip]');
-  if (!track) return;
-  track.append(...[...track.children].map((node) => node.cloneNode(true)));
-  const halfWidth = track.scrollWidth / 2;
-  track.style.setProperty('--strip-duration', `${Math.round(halfWidth / STRIP_PX_PER_SEC)}s`);
+  initAutoScroll(track?.closest('.strip'), track, STRIP_PX_PER_SEC);
 }
 
 function initTickers() {
-  document.querySelectorAll('[data-ticker]').forEach((track) => {
-    const cards = [...track.children];
-    if (!cards.length) return;
-    track.append(...cards.map((node) => node.cloneNode(true)));
-    const halfWidth = track.scrollWidth / 2;
-    track.style.setProperty('--ticker-duration', `${Math.round(halfWidth / TICKER_PX_PER_SEC)}s`);
-  });
+  document.querySelectorAll('[data-ticker]').forEach((track) =>
+    initAutoScroll(track.closest('.ticker__viewport'), track, TICKER_PX_PER_SEC)
+  );
 }
 
 initScrollChrome();
