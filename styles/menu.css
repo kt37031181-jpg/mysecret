@@ -1274,6 +1274,57 @@
   border-radius: calc(var(--radius-lg) - 8px);
 }
 
+/* Portrait variant — the director's face leads, crest and title sit under it */
+.master__plate--person {
+  position: relative;
+  aspect-ratio: 4 / 5;
+}
+
+.master__plate--person > img {
+  object-fit: cover;
+  object-position: center 22%;
+  border-radius: var(--radius-lg);
+}
+
+.master__plate--person figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 3.4rem 1.2rem 1.2rem;
+  background: linear-gradient(180deg, transparent, rgba(11, 10, 9, 0.92));
+}
+
+.master__plate--person figcaption img {
+  flex: none;
+  width: 46px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center 42%;
+  border-radius: 6px;
+  border: 1px solid rgba(201, 169, 106, 0.45);
+}
+
+.master__plate--person figcaption span {
+  display: grid;
+  gap: 3px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold-lt);
+}
+
+.master__plate--person figcaption b {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+}
+
 /* Shop photo variant — real interior with the crest laid over it */
 .master__plate--shop {
   position: relative;
